@@ -1,0 +1,124 @@
+---
+title: "Day 4 morning, matrices"
+author: "Tom Gibbens-Matsuyama"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+# create sequence of values ----
+my_values <- seq(from = 1, to = 10, by = 1)
+my_values
+
+# convert to matrix ----
+my_matrix <- matrix(data = my_values,
+                    nrow = 2, 
+                    ncol = 5,
+                    byrow = )
+class(my_matrix)
+```
+
+## Incorrectly declared matrix sizes
+```{r}
+matrix(data = my_values, nrow = 2,
+       ncol = 3, byrow = TRUE)
+
+matrix(data = my_values, nrow = 3,
+       ncol = 4,
+       byrow = TRUE)
+```
+
+
+## Let's do some math with matrices
+
+```{r}
+# scalar multiplication ----
+4 * my_matrix
+
+# Let's create a second matrix
+my_values2 <- seq(from = 21, to = 30, by = 1)
+my_values2
+
+my_matrix2 <- matrix(data = my_values2,
+                     nrow = 2,
+                     byrow = TRUE)
+my_matrix2
+
+# add matrices ----
+my_matrix + my_matrix2
+
+# subtract matrices ----
+my_matrix2 - my_matrix
+
+
+```
+
+```{r}
+# make a couple of 2x2 matrices ----
+cats <- matrix(data = c(0, 4, 3, 1), nrow = 2,
+               byrow = TRUE)
+dogs <- matrix(data = c(6, -3, 0, 2), nrow = 2, byrow = TRUE)
+
+cats %*% dogs
+```
+
+## Leslie matrix example 
+
+```{r}
+# Create the matrix ----
+insect_leslie <- matrix(data = c(0, 0, 600, 0.2, 0, 0, 0, 0.08, 0),
+                        nrow = 3,
+                        ncol = 3,
+                        byrow = TRUE)
+
+# initial starting conditions ----
+insect_y0 <- c(12000, 700, 500)
+
+# pop at year 1 ----
+insect_y1 <- insect_leslie %*% insect_y0
+insect_y1
+
+# pop at year 2 ----
+insect_y2 <- insect_leslie %*% insect_y1
+insect_y2
+
+insect_y3 <- insect_leslie %*% insect_y2
+insect_y3
+
+insect_y4 <- insect_leslie %*% insect_y3
+insect_y4
+```
+
+## Tree leslie example
+
+```{r}
+# make matrix ----
+tree_leslie <- matrix(data = c(0, 0, 5000, 0.1, 0, 0, 0, 0.06, 0.95),
+                      nrow = 3,
+                      ncol = 3,
+                      byrow = TRUE)
+
+# intial startig conditions
+tree_y0 <- matrix(c(5000, 0, 0), nrow = 3, byrow = TRUE)
+
+# pop at year 1 
+tree_y1 <- tree_leslie %*% tree_y0
+tree_y1
+
+# pop at year 2
+tree_y2 <- tree_leslie %*% tree_y1
+tree_y2
+
+# pop at year 3 
+tree_y3 <- tree_leslie %*% tree_y2
+tree_y3
+
+tree_y4 <- tree_leslie %*% tree_y3
+tree_y4
+
+tree_y5 <- tree_leslie %*% tree_y4
+tree_y5
+```
+
